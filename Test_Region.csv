@@ -1,0 +1,6 @@
+Region_Name,Region_Ecological_Consideration,Region_Alternative_Energy_Sources,Region_Weather_Conditions,Region_Processing_Capacity,Region_Area,Region_Investment,Region_Total_Turnover,Region_Workforce,Region_Legal_Clearance,Region_National_Revenue,Region_Permits_and_Approvals,Region_Refinery_Configuration,Region_License,Region_Risk_Factors,Region_Project_Delivery_Time,Overall_Region_Performance
+Region1,GOOD,AVERAGE,BAD,GOOD,AVERAGE,BAD,GOOD,AVERAGE,BAD,GOOD,GOOD,GOOD,GOOD,GOOD,GOOD,?
+Region2,AVERAGE,BAD,AVERAGE,AVERAGE,BAD,AVERAGE,AVERAGE,BAD,AVERAGE,AVERAGE,AVERAGE,AVERAGE,AVERAGE,AVERAGE,AVERAGE,?
+Region3,BAD,GOOD,GOOD,BAD,GOOD,GOOD,BAD,GOOD,GOOD,BAD,BAD,BAD,BAD,BAD,BAD,?
+Region4,AVERAGE,GOOD,BAD,AVERAGE,AVERAGE,BAD,GOOD,AVERAGE,GOOD,AVERAGE,AVERAGE,AVERAGE,AVERAGE,AVERAGE,AVERAGE,?
+Region5,BAD,AVERAGE,BAD,BAD,GOOD,AVERAGE,AVERAGE,AVERAGE,BAD,BAD,BAD,BAD,BAD,BAD,BAD,?

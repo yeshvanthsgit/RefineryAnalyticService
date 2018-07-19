@@ -1,0 +1,248 @@
+ 
+ 
+ <form class="form-inline mr-auto" name="refineryForm">
+
+<div class="container" style="margin-top: 1%">
+<div class="row" style="text-align: center;margin-bottom: 5%">
+
+ <div class="col-lg-12" style="text-align: center;margin-bottom: 5%">
+ <h2 style="color: #fff;"><b>Update Refinery</b></h2>
+ </div>
+</div>
+
+<div class="row">
+ <div class="col-lg-3" style="text-align: center;margin-bottom: 5%;background-color: #fff;">
+ 
+ <div style="margin-top: 3%">
+ <h3><b>Search Criteria</b></h3>
+ </div>
+ 
+ <div style="margin-bottom: 5%">
+    <input class="form-control mr-sm-2" type="text"  ng-model="refinery" placeholder="Refinery" aria-label="Search" style="margin-bottom: 8%;margin-top:4%">
+      <button class="btn btn-dark" type="button"  ng-click="searchRefineryData()">
+          <i class="fa fa-search"></i> Search</button>
+</div>
+ </div>
+ <div class="col-lg-1"></div>
+ <div class="col-lg-8" style="height:85%;text-align: center;margin-bottom: 5%; background-color: #fff;" >
+ 
+ <div style="margin-top:1%;margin-bottom: 5%">
+ <h3><u><b>Refinery Data</b></u></h3>
+ </div>
+ 
+ <div ng-show="!refineryModal" style="margin-bottom: 10%">
+ <h5>Please Enter Search Criteria to display the Refinery Details.</h5>
+ </div>
+	<div ng-show="refineryModal">
+      <div class="form-group row" style="margin-top:3%;" >
+     <div class="col-lg-6">
+    <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Refinery Name</label></div>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" ng-disabled="isColDisabled['Refinery_Name']"  ng-model="refineryModal['Refinery_Name']" ng-disabled="isColDisabled['Refinery_Name']" />
+    </div>
+  </div>
+  
+        <div class="form-group row" style="margin-top:2%;">
+        <div class="col-lg-6"  >
+    <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Site Name</label></div>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" ng-model="refineryModal['Site_Name']" ng-disabled="isColDisabled['Site_Name']" />
+    </div>
+  </div>
+  
+        <div class="form-group row" style="margin-top:2%;">
+        <div class="col-lg-6"  >
+    <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Pressure</label></div>
+    <div class="col-lg-6">
+    
+       <input type="text" class="form-control" ng-model="refineryModal['Thermal_Cracking_Pressure']" ng-disabled="isColDisabled['Thermal_Cracking_Pressure']" />
+    </div>
+  </div>
+
+          <div class="form-group row" style="margin-top:2%;">
+          <div class="col-lg-6"  >
+    <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Temperature</label></div>
+    <div class="col-lg-6">
+       <input type="text" class="form-control" ng-model="refineryModal['Thermal_Cracking_Temperature']" ng-disabled="isColDisabled['Thermal_Cracking_Temperature']" />
+    </div>
+  </div>
+  
+  <div class="form-group row" style="margin-top:2%;">
+  <div class="col-lg-6"  >
+    <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%"> Vaccum Residue Heavier Hydrocarbons</label></div>
+    <div class="col-lg-6">
+        <input type="text" class="form-control" ng-model="refineryModal['Vaccum_Residue_Heavier_Hydrocarbons']" ng-disabled="isColDisabled['Vaccum_Residue_Heavier_Hydrocarbons']" />
+    </div>
+  </div>
+
+  <div class="form-group row" style="margin-top:2%;">
+  <div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Claus H2S</label></div>
+    <div class="col-lg-6">
+            <input type="text" class="form-control" ng-model="refineryModal['Claus_H2S']" ng-disabled="isColDisabled['Claus_H2S']" />
+
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;">
+    <div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Coking Feed</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Coking_Feed']" ng-disabled="isColDisabled['Coking_Feed']" />
+    </div>
+  </div>
+  
+  
+    <div class="form-group row" style="margin-top:2%;">
+    <div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Water</label></div>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" ng-model="refineryModal['Condensor_Water']" ng-disabled="isColDisabled['Condensor_Water']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Naphtha</label></div>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" ng-model="refineryModal['Condensor_Naphtha']" ng-disabled="isColDisabled['Condensor_Naphtha']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Cracking Side Chained Aromatics Chained Aromatics</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" ng-disabled="isColDisabled['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil ASTM Distillation</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Crude_Oil_ASTM_Distillation']" ng-disabled="isColDisabled['Crude_Oil_ASTM_Distillation']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Boiling Point</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Crude_Oil_Boiling_Point']" ng-disabled="isColDisabled['Crude_Oil_boiling point']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Density</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Crude_Oil_Density']" ng-disabled="isColDisabled['Crude_Oil_Density']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Viscosity</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Crude_Oil_Viscosity']" ng-disabled="isColDisabled['Crude_Oil_Viscosity']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Furnance Fuel Oil</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Furnance_Fuel_Oil']" ng-disabled="isColDisabled['Furnance_Fuel_Oil']" />
+    </div>
+  </div>
+  
+    <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Gas Processing Methane</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Gas_Processing_Methane']" ng-disabled="isColDisabled['Gas_Processing_Methane']" />
+    </div>
+  </div>
+  
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Methane Reforming</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Hydrogen_Production_Methane_Reforming']" ng-disabled="isColDisabled['Hydrogen_Production_Methane_Reforming']" />
+    </div>
+  </div>
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Technology Sulphur</label></div>
+    <div class="col-lg-6">
+      <input type="text" class="form-control" ng-model="refineryModal['Hydrogen_Production_Technology_Sulphur']" ng-disabled="isColDisabled['Hydrogen_Production_Technology_Sulphur']" />
+    </div>
+  </div>
+  
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrotreating Organic Sulphur Compounds</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Hydrotreating_Organic_Sulphur_Compounds']" ng-disabled="isColDisabled['Hydrotreating_Organic_Sulphur_Compounds']" />
+    </div>
+  </div>
+  
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Olefin Polymerization Process Technology C3 C4 Olefin Feed</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" ng-disabled="isColDisabled['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" />
+    </div>
+  </div>
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Petroleum Refinery Hydrocarbon Balances</label></div>
+    <div class="col-lg-6">
+     <input type="text" class="form-control" ng-model="refineryModal['Petroleum_Refinery_Hydrocarbon_Balances']" ng-disabled="isColDisabled['Petroleum_Refinery_Hydrocarbon_Balances']" />
+    </div>
+  </div>
+  
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Reaction Mechanism Pressure</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Reaction_Mechanism_Pressure']" ng-disabled="isColDisabled['Reaction_Mechanism_Pressure']" />
+    </div>
+  </div>
+
+      <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+    <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil API Gravity</label></div>
+    <div class="col-lg-6">
+    <input type="text" class="form-control" ng-model="refineryModal['Crude_Oil_API_Gravity']" ng-disabled="isColDisabled['Crude_Oil_API_Gravity']" />
+    </div>
+  </div>
+
+<div class="form-group row" style="margin-top:5%;margin-bottom:5%">
+<div class="col-lg-6" style="padding-left:22%;">
+        <button class="btn btn-dark"  type="button"  ng-disabled="enabledAnalyzeButton" ng-click="updateRefineryData()">
+          <i class="fa fa-pencil-square-o"></i>&nbsp;Update</button>
+          </div>
+          
+          <div class="col-lg-6" style="padding-right:22%">
+          <button class="btn btn-dark" type="button" ng-disabled="!enabledAnalyzeButton" ng-click="analyzeModel()">
+          <i class="fa fa-tasks"></i>&nbsp;Run Model</button>
+          </div>
+          </div>
+          
+       </div>   
+ </div>
+ </div>
+ </div>
+ 
+ </form>
+   <!-- Modal -->
+<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileUploadTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header alert-success">
+        <h5 class="modal-title" id="exampleModalLongTitle">Refinery Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Close</button>
+      </div>
+    </div>
+  </div>
+</div>

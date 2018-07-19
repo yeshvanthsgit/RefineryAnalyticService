@@ -1,0 +1,76 @@
+<div class="container" style="margin-top: 1%;">
+<div class="row" style="text-align: center;margin-bottom: 3%">
+ <div class="col-lg-12" style="text-align: center;margin-bottom: 3%">
+ <h2 style="color: #fff;"><b>Testing and Training Data</b></h2>
+ </div>
+ 
+</div>
+  <div class="row" >
+    <div class="col-lg-6" >
+    <input type="image" src="./image/chart.png" style="display: block;float: left;height: 85%;cursor: inherit;" ></input>
+   
+    </div>
+    <div class="col-lg-6" style="background-color: #fff;height: 35%">
+    
+       <form>
+            <div class="row" style="margin-top: 3%;"> 
+            <div class="col-lg-6" >               
+        <h6 style="color: #000;"><b>
+            Upload Testing Data Set: <i class="fa fa-file" aria-hidden="true"></i> 
+            </b></h6></div>
+	<div class="col-lg-6" >
+            <label class="browse btn btn-primary input-lg" style="background-color: #455A64">Browse
+             <input type="file" id="file0" style="display:none;" onchange="showFileName(this, 'file0Path');" file-model="myForm.files[0]"/>
+             </label><span id="file0Path"></span> 
+            </div>
+            </div>
+            
+            <div class="row" style="margin-top: 3%;">
+            <div class="col-lg-6" > 
+             <h6 style="color: #000;"><b>    
+            Upload Training Data Set: <i class="fa fa-file" aria-hidden="true"></i>
+            </b></h6></div> <div class="col-lg-6" > 
+                   <label class="browse btn btn-primary input-lg" style="background-color: #455A64">Browse
+             <input type="file" id="file1" style="display:none;" onchange="showFileName(this, 'file1Path');" file-model="myForm.files[1]"/>
+             </label><span id="file1Path"></span>
+             
+             </div>
+			
+
+ </div>
+ <div class="row" style="margin-top: 8%;margin-bottom: 4%;">  
+<div class="col-lg-6" style="padding-left:22%"> 
+          <button class="btn btn-dark" type="button" ng-disabled="enabledAnalyzeButton" ng-click="doUploadFile()">
+          <i class="fa fa-upload"></i>&nbsp;Upload</button>
+          </div>
+          <div class="col-lg-6" style="padding-left:2%"> 
+          <button class="btn btn-dark" type="button" ng-disabled="!enabledAnalyzeButton" ng-click="analyzeModel()">
+          <i class="fa fa-tasks"></i>&nbsp;Run Model</button>
+        </div></div>
+     
+         </form>
+    
+    
+    </div>
+  </div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileUploadTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header alert-success">
+        <h5 class="modal-title" id="exampleModalLongTitle">Testing and Training Data Set(s)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal"> <i class="fa fa-close"></i>&nbsp;Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
