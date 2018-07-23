@@ -215,7 +215,7 @@ app.controller(
 					
 					
 					$scope.analyzeModel = function() {
-						var url = "http://ushydykumarbar1:8080/runModal";
+						var url = "http://10.118.18.154:8082/runModal";
 
 						var data = "";
 						
@@ -377,7 +377,7 @@ app.controller('UpdateRefineryController', function($scope, $http) {
 	
 	
 	$scope.analyzeModel = function() {
-		var url = "http://ushydykumarbar1:8080/runModal";
+		var url = "http://10.118.18.154:8082/runModal";
 
 		var data = "";
 		
