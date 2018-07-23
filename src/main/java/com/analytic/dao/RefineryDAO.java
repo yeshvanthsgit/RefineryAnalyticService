@@ -1,19 +1,14 @@
 package com.analytic.dao;
 
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,22 +53,22 @@ public static DB getDb(String dbName) {
 		if("TrainDB".equals(dbName)){
 			 db = mongo.getDB("TRAINDB");
 			 if(type.equals("Refinary")) {
-				 collection = db.getCollection("Refinarycoll");
+				 collection = db.getCollection("RefinaryCollection");
 			 }else if(type.equals("Region")) {
-				 collection = db.getCollection("Regioncoll");
+				 collection = db.getCollection("RegionCollection");
 			 }else if(type.equals("Site")){
-				 collection = db.getCollection("Sitecoll");
+				 collection = db.getCollection("SiteCollection");
 			}
 		}else if("TestDB".equals(dbName)){
 			
 			 db = mongo.getDB("TESTDB");
 			 
 			 if(type.equals("Refinary")) {
-				 collection = db.getCollection("Refinarycoll");
+				 collection = db.getCollection("RefinaryCollection");
 			 }else if(type.equals("Region")) {
-				 collection = db.getCollection("Regioncoll");
+				 collection = db.getCollection("RegionCollection");
 			 }else if(type.equals("Site")){
-				 collection = db.getCollection("Sitecoll");
+				 collection = db.getCollection("SiteCollection");
 			}
 			 
 		
@@ -211,8 +206,9 @@ public static DB getDb(String dbName) {
 		  JSONArray jsonarray = new JSONArray();
 		collection = fetchCollection(level,type);
 		
-		BasicDBObject neQuery = new BasicDBObject();
-		neQuery.put(columnName,columnValue );
+		DBObject neQuery = new BasicDBObject();
+		//neQuery.put(columnName, Pattern.compile(columnValue, Pattern.CASE_INSENSITIVE));
+		neQuery.put(columnName, columnValue);
 		DBCursor cursor = collection.find(neQuery);
 		while (cursor.hasNext()) {
 			DBObject result =  cursor.next();
