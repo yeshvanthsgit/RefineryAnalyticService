@@ -1,11 +1,7 @@
 package com.analytic.util;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,6 +55,10 @@ public class InputDataHandler {
 							        	continue; 
 							        }
 							        
+							        if(checkEmptyRow(row, formatter)) {
+							        	continue; 
+							        }
+							        
 							        //To avoid COMMA being appended
 							        boolean firstCell = true;
 							        
@@ -66,7 +66,7 @@ public class InputDataHandler {
 							        	
 							            Cell cell = row.getCell(c, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
 							            
-							            if ( !firstCell ){
+							            if ( !firstCell){
 							            	out.print(',');
 							            }
 							            if ( cell != null ) {
@@ -75,11 +75,11 @@ public class InputDataHandler {
 							                    value = "=" + value;
 							                }
 							                out.print(encodeValue(value));
-							            } else {
-							            	//out.print("N/A");
 							            }
+							            
 							            firstCell = false;
 							        }
+							        
 							        out.println();
 							    }
 								
@@ -98,6 +98,29 @@ public class InputDataHandler {
 	}
 	
 
+	private static boolean checkEmptyRow(Row row, DataFormatter formatter) {
+		
+		int emptyCellCount = 0;
+		
+		int rowLength = row.getLastCellNum();
+		
+		for (int c = 0, cn = row.getLastCellNum() ; c < cn ; c++) {
+        	
+            Cell cell = row.getCell(c, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+            
+            if ( cell == null ) {
+				emptyCellCount++;
+            }
+        }
+		
+		if(emptyCellCount == rowLength) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+
 	static private Pattern rxquote = Pattern.compile("\"");
 
 	static private String encodeValue(String value) {
@@ -114,14 +137,10 @@ public class InputDataHandler {
 		else
 			return value;
 	}
-
 	
-
 	public static void devideExcel(MultipartFile trainFile, MultipartFile testFile) {
 	devideEachExcel(testFile);
 	devideEachExcel(trainFile);
-	
-	
 		
 	}
 }
