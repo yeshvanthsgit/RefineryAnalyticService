@@ -1,14 +1,22 @@
 package com.analytic.dao;
 
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +38,22 @@ import com.mongodb.WriteResult;
 import com.mongodb.util.JSON;
 @Repository
 public class RefineryDAO {
-	private static Mongo mongo = new Mongo("localhost", 27017);
+	private static Mongo mongo = null;
+
+	static {
+	String attributePath = "Attributes.properties";
+	Properties prop = new Properties();
+	try {
+		
+		InputStream	inputT = new FileInputStream(attributePath);
+		prop.load(inputT);
+		 mongo = new Mongo(prop.getProperty("MONGOHOST"), 27017);
+
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
 	private static DBCollection collection = null;
 	
 	private static  DB db = null;

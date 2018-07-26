@@ -3,6 +3,8 @@ package com.analytic.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,8 +43,15 @@ public class RefineryService {
 		return refineryDAO.updateRecord(level, type, refineryData);
 	}
 
-	public String updateData(String level, String type, MultipartFile path) throws FileNotFoundException {
-	    File convFile = new File( path.getOriginalFilename());
+	public String updateData(String level, String type, MultipartFile path) throws Exception {
+ 		String attributePath = "Attributes.properties";
+		Properties prop = new Properties();
+
+		InputStream inputT = new FileInputStream(attributePath);
+		prop.load(inputT);
+		
+		String pathToSave = prop.getProperty("CSV_PATH");
+	    File convFile = new File( pathToSave + path.getOriginalFilename());
 		FileInputStream fis = new FileInputStream(convFile);
 
 	    
