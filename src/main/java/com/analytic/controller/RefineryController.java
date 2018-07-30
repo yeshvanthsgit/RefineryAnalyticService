@@ -66,10 +66,12 @@ public class RefineryController {
 		
 		String status =  null;
 		try {
-		status = refineryService.saveData(testfile,trainfile);
+			status = refineryService.saveData(testfile,trainfile);
+			System.out.println("Status after uploading::"+status);
 		}
 		catch(Exception e){
 			status = null;
+			System.out.println("Error while uploading::"+e.printStackTrace());
 		}
 		
 		if(null != status){
