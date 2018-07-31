@@ -71,7 +71,7 @@ public class RefineryController {
 		}
 		catch(Exception e){
 			status = null;
-			System.out.println("Error while uploading::"+e.printStackTrace());
+			System.out.println("Error while uploading::"+e.getMessage());
 		}
 		
 		if(null != status){
