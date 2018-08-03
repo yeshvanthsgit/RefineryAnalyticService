@@ -105,7 +105,7 @@ public class InputDataHandler {
 			e.printStackTrace();
 		}
 
-		System.out.println("TEST");
+		System.out.println("Converted excel to comma separated values!");
 
 	}
 
