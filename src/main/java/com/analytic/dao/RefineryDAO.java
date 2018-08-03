@@ -147,11 +147,10 @@ public static DB getDb(String dbName) {
 		            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 		            DBObject bson = (DBObject) JSON.parse(jsonObject.toString());
 		            WriteResult insert = collection.insert(bson);
-		            System.out.println(insert);
 
 				}
 		        
-		        fetchAllRecordsInCollections(dbName,type);
+		      //  fetchAllRecordsInCollections(dbName,type);
 		       
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -186,7 +185,7 @@ public static DB getDb(String dbName) {
 		  JSONArray jsonarray = new JSONArray();
 
 		for (String collectionName : collections) {
-				System.out.println(collectionName);
+				/*System.out.println(collectionName);*/
 				collection = fetchCollection(level,collectionName);
 				DBCursor cursor1 = collection.find();
 				while(cursor1.hasNext()) {
@@ -194,7 +193,7 @@ public static DB getDb(String dbName) {
 					DBObject result = cursor1.next();
 					
 					JSONObject output = new JSONObject(JSON.serialize(result));
-					System.out.println(output);
+				/*	System.out.println(output);*/
 					jsonarray.put(output);
 
 				}
@@ -217,7 +216,7 @@ public static DB getDb(String dbName) {
 			DBObject result = cursor1.next();
 			
 			JSONObject output = new JSONObject(JSON.serialize(result));
-			System.out.println(output);
+			/*System.out.println(output);*/
 			jsonarray.put(output);
 
 		}
@@ -236,7 +235,7 @@ public static DB getDb(String dbName) {
 		while (cursor.hasNext()) {
 			DBObject result =  cursor.next();
 			JSONObject output = new JSONObject(JSON.serialize(result));
-			System.out.println(output);
+			/*System.out.println(output);*/
 			jsonarray.put(output);
 		}
 		return jsonarray.toString();
