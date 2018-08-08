@@ -1,22 +1,17 @@
 package com.analytic.dao;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
-import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -147,10 +142,11 @@ public static DB getDb(String dbName) {
 		            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 		            DBObject bson = (DBObject) JSON.parse(jsonObject.toString());
 		            WriteResult insert = collection.insert(bson);
+		            //System.out.println(insert);
 
 				}
 		        
-		      //  fetchAllRecordsInCollections(dbName,type);
+		       // fetchAllRecordsInCollections(dbName,type);
 		       
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -185,7 +181,7 @@ public static DB getDb(String dbName) {
 		  JSONArray jsonarray = new JSONArray();
 
 		for (String collectionName : collections) {
-				/*System.out.println(collectionName);*/
+				//System.out.println(collectionName);
 				collection = fetchCollection(level,collectionName);
 				DBCursor cursor1 = collection.find();
 				while(cursor1.hasNext()) {
@@ -193,7 +189,7 @@ public static DB getDb(String dbName) {
 					DBObject result = cursor1.next();
 					
 					JSONObject output = new JSONObject(JSON.serialize(result));
-				/*	System.out.println(output);*/
+					//System.out.println(output);
 					jsonarray.put(output);
 
 				}
@@ -216,7 +212,7 @@ public static DB getDb(String dbName) {
 			DBObject result = cursor1.next();
 			
 			JSONObject output = new JSONObject(JSON.serialize(result));
-			/*System.out.println(output);*/
+			//System.out.println(output);
 			jsonarray.put(output);
 
 		}
@@ -235,7 +231,7 @@ public static DB getDb(String dbName) {
 		while (cursor.hasNext()) {
 			DBObject result =  cursor.next();
 			JSONObject output = new JSONObject(JSON.serialize(result));
-			/*System.out.println(output);*/
+			//System.out.println(output);
 			jsonarray.put(output);
 		}
 		return jsonarray.toString();
@@ -325,5 +321,115 @@ public static DB getDb(String dbName) {
 			
 		return "success";
 	}*/
+	public String fetchAttributes(String level, String type, String columnValue) throws JSONException {
+		try {
+				String columnName;
+				if(type.equals("Refinary")) {
+					columnName = "Refinery_Name";
+				}else if(type.equals("Region")) {
+					columnName =  "Region_Name";
+				}else {
+					columnName =  "Site_Name";
+				}
+				
+				
+			return fetchBasedOnCriteria(level,type,columnName,columnValue);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+	}
+	
+	
+	public String saveRefinary(String level, String type, String payload) throws JSONException {
+		collection = fetchCollection(level,type);
+		JSONObject jsonobject;
+		try {
+			jsonobject = new JSONObject(payload);
+			String refinayName= jsonobject.getString("Refinery_Name");
+			int result = duplicateRecord(level, type, "Refinery_Name", refinayName);
+			if(result !=0) {
+				return "duplicate";
+			}else {
+			
+            DBObject bson = (DBObject) JSON.parse(jsonobject.toString());
+            WriteResult insert = collection.insert(bson);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		return "success";
+	}
+	
+	public String fetchSiteDataAttachedToRegion(String regionValue) throws JSONException {
+		// TODO Auto-generated method stub
+		try {
+			return fetchBasedOnCriteria("TestDB","Site","Region_Name",regionValue);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		
+	}
+	public String fetchRefinaryDataAttachedToRegion(String regionValue) throws JSONException  {
+		
+		 JSONArray jsonarray = new JSONArray();
+		 try {
+		collection = fetchCollection("TestDB","Site");
+
+		BasicDBObject whereQuery = new BasicDBObject();
+		whereQuery.put("Region_Name", regionValue);
+		BasicDBObject fields = new BasicDBObject();
+		fields.put("Site_Name", 1);
+  
+		DBCursor cursor = collection.find(whereQuery, fields);
+	    List<String> siteNameList = new ArrayList<String>();
+
+		while (cursor.hasNext()) {
+			siteNameList.add((cursor.next().get("Site_Name")).toString());
+		}
+	    BasicDBObject inQuery = new BasicDBObject();
+
+	    collection = fetchCollection("TestDB","Refinary");
+		 inQuery.put("Site_Name", new BasicDBObject("$in", siteNameList));
+		    DBCursor cursor1 = collection.find(inQuery);
+		    while(cursor1.hasNext()) {
+		    	DBObject result =  cursor1.next();
+				JSONObject output = new JSONObject(JSON.serialize(result));
+				/*System.out.println(output);*/
+				jsonarray.put(output);
+		    }
+		 }catch(JSONException e) {
+			 throw e;
+		 }
+		    
+		    return jsonarray.toString();
+		
+	}
+	
+	public String fetchRefinaryDataAttachedToSite(String siteValue) throws JSONException {
+		try {
+			return fetchBasedOnCriteria("TestDB","Refinary","Site_Name",siteValue);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			throw e;
+		}
+		
+	}
+	
+	public  int  duplicateRecord(String level,String type, String columnName, String columnValue) throws JSONException{
+			
+			collection = fetchCollection(level,type);
+			
+			DBObject neQuery = new BasicDBObject();
+			//neQuery.put(columnName, Pattern.compile(columnValue, Pattern.CASE_INSENSITIVE));
+			neQuery.put(columnName, columnValue);
+			DBCursor cursor = collection.find(neQuery);
+			while (cursor.hasNext()) {
+				return 1;
+			}
+			return 0;
+		}
 
 }
