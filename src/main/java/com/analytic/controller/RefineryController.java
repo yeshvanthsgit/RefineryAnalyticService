@@ -6,7 +6,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -177,6 +176,48 @@ public class RefineryController {
 		return refineryService.deleteRecord(level, type,keyName,keyValue);
 	}
 
+	//new methods
+	
+		@RequestMapping("/fetchSiteDataAttachedToRegion/{regionValue}")
+		@GET
+		public String fetchSiteDataAttachedToRegion(@PathVariable String regionValue) throws Exception {
+			
+			
+			return refineryService.fetchSiteDataAttachedToRegion(regionValue);
+		}
+		
+		@RequestMapping("/fetchRefinaryDataAttachedToRegion/{regionValue}")
+		@GET
+		public String fetchRefinaryDataAttachedToRegion(@PathVariable String regionValue) throws Exception {
+			
+			
+			return refineryService.fetchRefinaryDataAttachedToRegion(regionValue);
+		}
+		
+		@RequestMapping("/fetchRefinaryDataAttachedToSite/{siteValue}")
+		@GET
+		public String fetchRefinaryDataAttachedToSite(@PathVariable String siteValue) throws Exception {
+			
+			
+			return refineryService.fetchRefinaryDataAttachedToSite(siteValue);
+		}
+		
+		@RequestMapping("/fetchAttributes/{level}/{type}/{columnValue}")
+		@GET
+		public String fetchAttributes(@PathVariable String level,@PathVariable String type,@PathVariable String columnValue) throws Exception {
+			
+			
+			return refineryService.fetchAttributes(level,type,columnValue);
+		}
+		
+		
+		@RequestMapping( method=RequestMethod.POST,value="/saveRefinary/{level}/{type}")
+		@POST
+		public ResponseEntity<JSendWrapper> saveRefinary(@PathVariable String level,@PathVariable String type,@RequestBody String payload) throws Exception {
+			
+			return JSendWrapper.ok(refineryService.saveRefinary(level,type,payload));
+			
+		}
 
 	
 	
