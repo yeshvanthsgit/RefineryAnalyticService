@@ -2,12 +2,10 @@ package com.analytic.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,4 +79,32 @@ public class RefineryService {
 		return refineryDAO.saveExcels(testPath, trainPath);
 	}*/
 
+	public String fetchSiteDataAttachedToRegion(String regionValue) throws JSONException {
+		return refineryDAO.fetchSiteDataAttachedToRegion(regionValue);
+	}
+
+	public String fetchRefinaryDataAttachedToRegion(String regionValue) throws JSONException {
+		// TODO Auto-generated method stub
+		 return refineryDAO.fetchRefinaryDataAttachedToRegion(regionValue);
+	}
+
+	public String fetchRefinaryDataAttachedToSite(String siteValue)throws JSONException  {
+		// TODO Auto-generated method stub
+		return refineryDAO.fetchRefinaryDataAttachedToSite(siteValue);
+	}
+
+	public String fetchAttributes(String level, String type, String columnValue) throws JSONException {
+		// TODO Auto-generated method stub
+		return refineryDAO.fetchAttributes(level,type,columnValue);
+	}
+
+	
+	public Object saveRefinary(String level, String type, String payload) throws JSONException {
+		// TODO Auto-generated method stub
+		return refineryDAO.saveRefinary(level,type,payload);
+
+	}
+
+	
+	
 }
