@@ -1,6 +1,7 @@
 package com.analytic.controller;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
@@ -218,7 +219,23 @@ public class RefineryController {
 			return JSendWrapper.ok(refineryService.saveRefinary(level,type,payload));
 			
 		}
+		
+		@RequestMapping("/fetchLimiteFields/{level}/{type}")
+		@GET
+		public String fetchLimiteFields(@PathVariable String level,@PathVariable String type) throws Exception {
+			
+			
+			return refineryService.fetchLimiteFields(level,type);
+		}
 
+		@RequestMapping("/deleteDb/{level}")
+		@DELETE
+		@Produces(MediaType.APPLICATION_JSON)
+		public String deleteDb(@PathVariable String level) throws Exception {
+
+			return refineryService.deleteDb(level);
+		}
+		
 	
 	
 
