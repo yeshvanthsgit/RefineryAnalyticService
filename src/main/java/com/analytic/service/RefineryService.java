@@ -105,6 +105,17 @@ public class RefineryService {
 
 	}
 
+	public String fetchLimiteFields(String level, String type) {
+		// TODO Auto-generated method stub
+		return refineryDAO.fetchLimiteFields(level,type);
+
+	}
+
+	public String deleteDb(String level) {
+		// TODO Auto-generated method stub
+		return refineryDAO.deleteDb(level);
+	}
+
 	
 	
 }
