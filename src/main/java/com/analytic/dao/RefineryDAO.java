@@ -431,5 +431,55 @@ public static DB getDb(String dbName) {
 			}
 			return 0;
 		}
+	public String fetchLimiteFields(String level, String type) {
+		 JSONArray jsonarray = new JSONArray();
+		 
+		collection = fetchCollection(level,type);
+		String columnName,columnName1;
+		if(type.equals("Refinary")) {
+			columnName = "Refinery_Name";
+			columnName1 = "Overall_Refinery_Performance";
+		}else if(type.equals("Region")) {
+			columnName =  "Region_Name";
+			columnName1 = "Overall_Region_Performance";
+		}else {
+			columnName =  "Site_Name";
+			columnName1 = "Overall_Site_Performance";
+		}
+		BasicDBObject allQuery = new BasicDBObject();
+
+	    BasicDBObject fields = new BasicDBObject();
+	    fields.put(columnName, 1);
+	    fields.put(columnName1, 2);
+
+	    DBCursor cursor = collection.find(allQuery,fields);
+	    while (cursor.hasNext()) {
+	    	DBObject result =  cursor.next();
+			JSONObject output;
+			try {
+				output = new JSONObject(JSON.serialize(result));
+				jsonarray.put(output);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			/*System.out.println(output);*/
+			
+	    }
+		return jsonarray.toString();
+
+	}
+	public String deleteDb(String level) {
+			db= getDb(level);
+			Set<String> collections = db.getCollectionNames();
+			for (String collectionName : collections) {
+				 collection = db.getCollection(collectionName);
+		         collection.drop();
+
+			}
+			 String data ="Data Deleted for "+ level + "!";
+			  
+			  return data;
+	}
 
 }
