@@ -1,5 +1,7 @@
 package com.analytic.controller;
 
+import java.text.ParseException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.analytic.service.RefineryService;
 import com.analytic.util.JSendWrapper;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -69,15 +72,25 @@ public class RefineryController {
 			status = refineryService.saveData(testfile,trainfile);
 			System.out.println("Status after uploading::"+status);
 		}
+		catch(ParseException e){
+			status = e.getMessage();
+			System.out.println("Error while uploading::"+e.getMessage());
+		}
 		catch(Exception e){
 			status = null;
 			System.out.println("Error while uploading::"+e.getMessage());
 		}
 		
-		if(null != status){
+		if (null != status) {
+			if (status.contains("InvalidFile")) {
+				JsonArray jsonArr = new JsonArray();
+				jsonArr.add("errorMessage");
+				jsonArr.add(status);
+				System.out.println(jsonArr.toString());
+				return new ResponseEntity<Object>(jsonArr.toString(), HttpStatus.NOT_ACCEPTABLE);
+			}
 			return new ResponseEntity<Object>(status, HttpStatus.OK);
-		}
-		
+		}		
 		else {
 			return new ResponseEntity<Object>(status, HttpStatus.BAD_REQUEST);
 		}

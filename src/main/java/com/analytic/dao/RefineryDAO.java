@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -297,15 +298,22 @@ public static DB getDb(String dbName) {
 		return msg;
 	}
 
-	public String saveExcels(MultipartFile testfile, MultipartFile trainfile) {
+	public String saveExcels(MultipartFile testfile, MultipartFile trainfile) throws Exception {
 		
 	   /* File testFile = new File( testfile.getOriginalFilename());
 	    File trainFile = new File( trainfile.getOriginalFilename());*/
 
-		InputDataHandler.devideExcel(trainfile,testfile);
-		DbProcessing.saveAndDevideFiles();
+		try {
+			InputDataHandler.devideExcel(trainfile,testfile);
+			DbProcessing.saveAndDevideFiles();
 			
+		} catch (ParseException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "success";
+			
 	}
 	
 	

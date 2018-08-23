@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,9 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class InputDataHandler {
 
-	public static void devideEachExcel(MultipartFile convFile) {
+	private static final List<String> POSSIBLE_VALUES_LIST_IN_KEY_ATTRIBUTES = new ArrayList<String>(){{
 		
-
+		add("GOOD");add("BAD");add("AVERAGE");add("good");add("bad");add("average");add("Good");add("Bad");add("Average");
+		add(" ");
+	}}; 
+	
+	public static void devideEachExcel(MultipartFile convFile) throws Exception {
+		
 		
 		try (InputStream input = convFile.getInputStream();) {
 			String attributePath = "Attributes.properties";
@@ -95,12 +103,16 @@ public class InputDataHandler {
 						out.println();
 					}
 
+				} catch(ParseException pe) {
+					throw pe;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 			}
 
+		} catch(ParseException pe) {
+			throw pe;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,11 +121,12 @@ public class InputDataHandler {
 
 	}
 
-	private static boolean checkEmptyRow(Row row, DataFormatter formatter) {
+	private static boolean checkEmptyRow(Row row, DataFormatter formatter) throws ParseException {
 
 		int emptyCellCount = 0;
 
 		int rowLength = row.getLastCellNum();
+		int rowNum = row.getRowNum();
 
 		for (int c = 0, cn = row.getLastCellNum(); c < cn; c++) {
 
@@ -121,6 +134,18 @@ public class InputDataHandler {
 
 			if (cell == null) {
 				emptyCellCount++;
+			} else if ((!POSSIBLE_VALUES_LIST_IN_KEY_ATTRIBUTES.contains(cell.getStringCellValue()))
+					&& row.getSheet().getSheetName().contains("Test") && row.getRowNum() != 0
+					&& ((row.getSheet().getSheetName().toLowerCase().contains("region") && c != 0)
+							|| (row.getSheet().getSheetName().toLowerCase().contains("site") && c != 0 && c != 1)
+							|| (row.getSheet().getSheetName().toLowerCase().contains("refinery") && c != 0 && c != 1))
+					&& c != cn - 1) {
+				throw new ParseException("InvalidFile" + "|" + row.getSheet().getSheetName() + "|" + (++rowNum)
+						+ "|" + (++c) + "|" + cell.getStringCellValue(), 0);
+			} else if ((!"?".equals(cell.getStringCellValue())) && row.getSheet().getSheetName().contains("Test")
+					&& row.getRowNum() != 0 && c == cn - 1) {
+				throw new ParseException("InvalidFile" + "|" + row.getSheet().getSheetName() + "|" + (++rowNum)
+						+ "|" + (++c) + "|" + cell.getStringCellValue(), 0);
 			}
 		}
 
@@ -148,7 +173,7 @@ public class InputDataHandler {
 			return value;
 	}
 
-	public static void devideExcel(MultipartFile trainFile, MultipartFile testFile) {
+	public static void devideExcel(MultipartFile trainFile, MultipartFile testFile) throws Exception {
 		devideEachExcel(testFile);
 		devideEachExcel(trainFile);
 
