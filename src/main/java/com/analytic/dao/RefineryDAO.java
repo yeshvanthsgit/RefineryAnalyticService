@@ -349,17 +349,22 @@ public static DB getDb(String dbName) {
 	}
 	
 	
-	public String saveRefinary(String level, String type, String payload) throws JSONException {
+		public String saveRefinary(String level, String type, String payload) throws JSONException {
 		collection = fetchCollection(level,type);
 		JSONObject jsonobject;
 		try {
 			jsonobject = new JSONObject(payload);
 			String refinayName= jsonobject.getString("Refinery_Name");
+			String siteName= jsonobject.getString("Site_Name");
+
 			int result = duplicateRecord(level, type, "Refinery_Name", refinayName);
 			if(result !=0) {
 				return "duplicate";
 			}else {
-			
+			int result1 = duplicateRecord(level, type, "Site_Name", siteName);
+			if(result1 == 0) {
+				return "Site Not Found";
+			}
             DBObject bson = (DBObject) JSON.parse(jsonobject.toString());
             WriteResult insert = collection.insert(bson);
 			}
@@ -369,6 +374,7 @@ public static DB getDb(String dbName) {
 		}
 		return "success";
 	}
+	
 	
 	public String fetchSiteDataAttachedToRegion(String regionValue) throws JSONException {
 		// TODO Auto-generated method stub
