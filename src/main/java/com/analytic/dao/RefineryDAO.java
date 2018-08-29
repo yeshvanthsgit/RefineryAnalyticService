@@ -455,10 +455,10 @@ public static DB getDb(String dbName) {
 			columnName1 = "Overall_Refinery_Performance";
 		}else if(type.equals("Region")) {
 			columnName =  "Region_Name";
-			columnName1 = "Overall_Region_Performance";
+			columnName1 = "Calculated_Region_Performance";
 		}else {
 			columnName =  "Site_Name";
-			columnName1 = "Overall_Site_Performance";
+			columnName1 = "Calculated_Site_Performance";
 		}
 		BasicDBObject allQuery = new BasicDBObject();
 
