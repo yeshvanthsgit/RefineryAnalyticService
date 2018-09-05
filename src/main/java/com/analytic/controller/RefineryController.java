@@ -249,7 +249,12 @@ public class RefineryController {
 			return refineryService.deleteDb(level);
 		}
 		
-	
+		@RequestMapping("/getKeys/{level}/{type}")
+		@GET
+		public List<String> getKeys(@PathVariable String level,@PathVariable String type) throws Exception{
+			return refineryService.getKeys(level,type);
+
+		}
 	
 
 }
