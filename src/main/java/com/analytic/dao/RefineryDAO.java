@@ -495,5 +495,17 @@ public static DB getDb(String dbName) {
 			  
 			  return data;
 	}
+	public List<String> getKeys(String level, String type) {
+		  List<String> keys=new ArrayList<String>();
+		collection = fetchCollection(level,type);
+        BasicDBObject allQuery = new BasicDBObject();;
+
+        DBCursor cursor = collection.find(allQuery);
+        	for (String key: cursor.next().keySet()) {
+        		keys.add(key);
+        	}
+
+        	return keys;
+	}
 
 }
