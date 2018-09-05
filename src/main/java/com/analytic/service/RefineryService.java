@@ -116,6 +116,8 @@ public class RefineryService {
 		return refineryDAO.deleteDb(level);
 	}
 
-	
+	public List<String> getKeys(String level, String type) {
+		return refineryDAO.getKeys(level,type);
+	}
 	
 }
