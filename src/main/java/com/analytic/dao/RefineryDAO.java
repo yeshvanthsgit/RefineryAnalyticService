@@ -35,10 +35,11 @@ import com.mongodb.util.JSON;
 @Repository
 public class RefineryDAO {
 	private static Mongo mongo = null;
+	static Properties prop = null;
 
 	static {
 	String attributePath = "Attributes.properties";
-	Properties prop = new Properties();
+	prop = new Properties();
 	try {
 		
 		InputStream	inputT = new FileInputStream(attributePath);
