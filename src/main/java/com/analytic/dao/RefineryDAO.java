@@ -495,17 +495,43 @@ public static DB getDb(String dbName) {
 			  
 			  return data;
 	}
-	public List<String> getKeys(String level, String type) {
+	public List<String> getNodeKeys() {
 		  List<String> keys=new ArrayList<String>();
-		collection = fetchCollection(level,type);
-        BasicDBObject allQuery = new BasicDBObject();;
-
-        DBCursor cursor = collection.find(allQuery);
-        	for (String key: cursor.next().keySet()) {
-        		keys.add(key);
-        	}
-
+		  String attributes =  prop.getProperty("NodeTestAttributes");
+		  String attrs[] =attributes.split(",");
+		  for (int i = 0; i < attrs.length; i++) {
+			  keys.add(attrs[i]);
+		  }
         	return keys;
+	}
+	public List<String> getSiteKeys() {
+		  List<String> keys=new ArrayList<String>();
+		  String attributes =  prop.getProperty("SiteTestAttributes");
+		  String attrs[] =attributes.split(",");
+		  for (int i = 0; i < attrs.length; i++) {
+			  keys.add(attrs[i]);
+		  }
+      	return keys;
+	}
+	public List<String> getRegionKeys() {
+		  List<String> keys=new ArrayList<String>();
+		  String attributes =  prop.getProperty("RegionTestAttributes");
+		  String attrs[] =attributes.split(",");
+		  for (int i = 0; i < attrs.length; i++) {
+			  keys.add(attrs[i]);
+		  }
+      	return keys;
+	}
+	public List<String> getKeys(String level, String type) {
+		 List<String> keys=new ArrayList<String>();
+		 if(type.equals("Refinary")) {
+			 keys = getNodeKeys();
+		 }else if(type.equals("Region")) {
+			 keys = getRegionKeys();
+		 }else if(type.equals("Site")){
+			 keys = getSiteKeys();
+		}
+		 return keys;
 	}
 
 }
